@@ -26,21 +26,21 @@ export default function HeaderComponent() {
               <menu>
                 <li>
                   <Link href="/">
-                    <a href="/" type="button" className={styles.button}>
+                    <a href="/" type="button" className="button">
                       Create Your Nanny Share
                     </a>
                   </Link>
                 </li>
                 <li>
                   <Link href="/">
-                    <a href="/" type="button" className={styles.button}>
+                    <a href="/" type="button" className="button">
                       Browse Shares
                     </a>
                   </Link>
                 </li>
                 <li>
                   <Link href="/">
-                    <a type="button" className={styles.button}>
+                    <a type="button" className="button">
                       Our Story
                     </a>
                   </Link>
@@ -51,12 +51,12 @@ export default function HeaderComponent() {
               <ul>
                 <li
                   type="button"
-                  className={styles.button}
+                  className="button"
                   style={{ backgroundColor: "#00C88C" }}
                 >
                   <h5>Become a Nanny Share Host</h5>
                 </li>
-                <li type="button" className={styles.button}>
+                <li type="button" className="button">
                   <h5>Sign in</h5>
                 </li>
               </ul>
@@ -105,7 +105,9 @@ export default function HeaderComponent() {
           height="56px"
         />
         <Link href="/">
-          <a>Sarah’s day care available now in North Sydney</a>
+          <a className="a" style={{ margin: "0 8px" }}>
+            Sarah’s day care available now in North Sydney
+          </a>
         </Link>
         <p>Wednesday, Thursday, Friday - 7:30 - 5:30</p>
       </footer>
