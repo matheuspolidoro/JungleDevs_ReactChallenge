@@ -1,0 +1,25 @@
+.logoBackground {
+    position: relative;
+    background-color: var(--green);
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    min-width: 64px;
+    min-height: 64px;
+    display: grid;
+    place-items: center;
+    padding-top: 8px;
+}
+
+.textBackground {
+    border: 1px solid lightgray;
+    background-color: #FFFFFF;
+    cursor: pointer;
+    padding: 0 24px;
+    margin: 0 12px;
+    border-radius: 32px;
+    width: 100%;
+    flex: 1;
+    display: grid;
+    place-items: center;
+}

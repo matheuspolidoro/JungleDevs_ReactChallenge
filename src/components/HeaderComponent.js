@@ -15,7 +15,12 @@ export default function HeaderComponent() {
             display: "flex",
           }}
         >
-          <Link href="/">
+          <Link
+            href="/"
+            style={{
+              display: "flex",
+            }}
+          >
             <a
               className={styles.logoBackground}
               aria-label="Redirect to home page"
