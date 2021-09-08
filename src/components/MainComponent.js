@@ -7,100 +7,6 @@ import imageSection4 from "../../assets/ImageSection4.png";
 import imageSection5 from "../../assets/ImageSection5.png";
 import styles from "../styles/MainComponent.module.css";
 
-const ResponseSnackbar = ({ response, result, setHasNewResponse }) => {
-  const [divContent, setDivContent] = useState(false);
-  const [warning, setWarning] = useState();
-
-  console.log("result  : ", result);
-
-  function switchDiv(res, bodyRes) {
-    if (res.status === 200) {
-      setDivContent(
-        <div
-          style={{
-            backgroundColor: "green",
-            padding: "8px",
-            borderRadius: "4px",
-            color: "#FFFFFF",
-          }}
-        >
-          <p>Ok</p>
-        </div>
-      );
-    } else if (res.status === 400) {
-      if (bodyRes.name) {
-        setDivContent(
-          <div
-            style={{
-              backgroundColor: "red",
-              padding: "8px",
-              borderRadius: "4px",
-              color: "#FFFFFF",
-            }}
-          >
-            <p>{warning}</p>
-          </div>
-        );
-        setWarning("Please fill the name field");
-      }
-
-      if (bodyRes.email) {
-        setDivContent(
-          <div
-            style={{
-              backgroundColor: "red",
-              padding: "8px",
-              borderRadius: "4px",
-              color: "#FFFFFF",
-            }}
-          >
-            <p>{warning}</p>
-          </div>
-        );
-        setWarning("Please fill the email field with a valid address");
-      }
-
-      if (bodyRes.name && bodyRes.email) {
-        setDivContent(
-          <div
-            style={{
-              backgroundColor: "red",
-              padding: "8px",
-              borderRadius: "4px",
-              color: "#FFFFFF",
-            }}
-          >
-            <p>{warning}</p>
-          </div>
-        );
-        setWarning("Plase fill the fields");
-      }
-    } else if (res.status === 500) {
-      setDivContent(
-        <div
-          style={{
-            backgroundColor: "orange",
-            padding: "8px",
-            borderRadius: "4px",
-            color: "#FFFFFF",
-          }}
-        >
-          <p>Try again later.</p>
-        </div>
-      );
-    }
-  }
-
-  useEffect(() => {
-    if (response) {
-      console.log("IF response.status", response.status);
-      switchDiv(response, result);
-    }
-  }, [response]);
-
-  return divContent;
-};
-
 export default function MainComponent() {
   const [hasNewResponse, setHasNewResponse] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -148,11 +54,7 @@ export default function MainComponent() {
       setLoading(false); //////        /;
     }, 3000);
   };
-
-  useEffect(() => {
-    console.log("responseBody", responseBody);
-  }, [responseBody]);
-
+ 
   return (
     <div className={styles.container}>
       <main className={styles.main}>
