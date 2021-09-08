@@ -54,7 +54,7 @@ export default function MainComponent() {
       setLoading(false); //////        /;
     }, 3000);
   };
- 
+
   return (
     <div className={styles.container}>
       <main className={styles.main}>
@@ -142,7 +142,7 @@ export default function MainComponent() {
             ) : null}
             {responseBody.detail.length > 0 ? (
               <label className={styles.label}>
-                Great. You're now subscribed!
+                Great. You are now subscribed!
               </label>
             ) : null}
           </form>

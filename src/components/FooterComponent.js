@@ -25,7 +25,7 @@ export default function FooterComponent() {
       </section>
 
       <section style={{ margin: "32px 0" }}>
-        <Image src={hapuWord} quality={100} />
+        <Image src={hapuWord} quality={100} alt="Hapu name" />
       </section>
       <p style={{ fontSize: "12px", color: "gray" }}>
         Copyright © 2017 Hapu PTY Limited All rights reserved

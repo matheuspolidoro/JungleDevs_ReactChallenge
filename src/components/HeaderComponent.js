@@ -25,7 +25,7 @@ export default function HeaderComponent() {
               className={styles.logoBackground}
               aria-label="Redirect to home page"
             >
-              <Image src={hapuSymbol} />
+              <Image src={hapuSymbol} alt="Hapu logo" />
             </a>
           </Link>
           <div className={styles.navigation}>
@@ -104,7 +104,10 @@ export default function HeaderComponent() {
               </div>
             </div>
             <aside style={{ flex: 1 }} className="displayNone">
-              <Image src={imageHeader} />
+              <Image
+                src={imageHeader}
+                alt="Image showing matching between users"
+              />
             </aside>
           </div>
         </section>
@@ -112,8 +115,8 @@ export default function HeaderComponent() {
       <footer className={styles.footer}>
         <Image
           src={imageProfile}
+          alt="Image of a random nanny"
           className={styles.imageProfile}
-          alt="Picture of a nanny"
           width="56px"
           height="56px"
         />

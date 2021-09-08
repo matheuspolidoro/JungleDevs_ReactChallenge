@@ -26,18 +26,20 @@ export default function NotFound() {
               aria-label="Redirect to home page"
             >
               <div>
-                <Image src={hapuSymbol} />
+                <Image src={hapuSymbol} alt="Hapu logo" />
               </div>
             </a>
           </Link>
           <Link href="/">
-            <div className={styles.textBackground}>
-              <h3>Page not found. Redirect to home page</h3>
-            </div>
+            <a>
+              <div className={styles.textBackground}>
+                <h3>Page not found. Redirect to home page</h3>
+              </div>
+            </a>
           </Link>
         </div>
         <section style={{ margin: "32px 0" }}>
-          <Image src={hapuWord} quality={100} />
+          <Image src={hapuWord} quality={100} alt="Hapu name" />
         </section>
       </main>
     </section>
