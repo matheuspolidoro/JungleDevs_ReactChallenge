@@ -2,6 +2,15 @@
     background-color: #FFFFFF;
     display: flex;
     place-items: center;
-    padding: 128px;
     flex-direction: column;
+    padding-top: 64px;
+}
+
+.container {
+    display: flex;
+    place-items: center;
+    flex-direction: column;
+    max-width: 1440px;
+    padding-left: clamp(8px, 1%, 128px);
+    padding-right: clamp(8px, 1%, 128px);
 }

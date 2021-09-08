@@ -1,12 +1,86 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import imageSection from "../../assets/ImageSection1.png";
 import imageSection3 from "../../assets/ImageSection3.png";
 import imageSection4 from "../../assets/ImageSection4.png";
 import imageSection5 from "../../assets/ImageSection5.png";
 import styles from "../styles/MainComponent.module.css";
 
+const ResponseSnackbar = ({ response, setHasNewResponse }) => {
+  const [divContent, setDivContent] = useState(false);
+  console.log("response sec", response);
+  function switchDiv() {
+    switch (response.ok) {
+      case false:
+        setDivContent(
+          <div
+            style={{
+              backgroundColor: "orange",
+              padding: "8px",
+              borderRadius: "4px",
+              color: "#FFFFFF",
+            }}
+          >
+            <p>a</p>
+          </div>
+        );
+      case true:
+        setDivContent(
+          <div
+            style={{
+              backgroundColor: "red",
+              padding: "8px",
+              borderRadius: "4px",
+              color: "#FFFFFF",
+            }}
+          >
+            <p>n</p>
+          </div>
+        );
+      default:
+        return <p>default</p>;
+    }
+  }
+
+  useEffect(() => {
+    switchDiv();
+  }, response);
+
+  return divContent;
+};
+
 export default function MainComponent() {
+  const [hasNewResponse, setHasNewResponse] = useState(false);
+  const [responseDetail, setResponseDetail] = useState("");
+
+  const subscribeNewsletter = async (event) => {
+    event.preventDefault();
+
+    const userData = {
+      name: event.target.name.value,
+      email: event.target.email.value,
+    };
+
+    const response = await fetch(
+      "https://api.jungledevs.com/api/v1/challenge-newsletter/",
+      {
+        body: JSON.stringify(userData),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+      }
+    );
+
+    const result = await response.json();
+
+    console.log("result first: ", result);
+    console.log("response first: ", response);
+    setHasNewResponse(true);
+    setResponseDetail(response);
+  };
+
   return (
     <div className={styles.container}>
       <main className={styles.main}>
@@ -36,7 +110,7 @@ export default function MainComponent() {
           </section>
         </article>
 
-        <hr className={styles.divider} />
+        <hr className="divider" />
 
         <section
           className={`${styles.sectionText}  ${styles.sectionLeft}`}
@@ -47,26 +121,41 @@ export default function MainComponent() {
             Leave us your name and email and we’ll update you as soon as a share
             becomes available in your area!
           </p>
-          <form className={styles.form}>
-            <input type="text" placeholder="Your name" />
-            <input type="email" placeholder="Your email" />
-            <button type="submit">Send</button>
+          <form className={styles.form} onSubmit={subscribeNewsletter}>
+            <input
+              id="name"
+              type="text"
+              placeholder="Your name"
+              className="simpleInput"
+            />
+            <input
+              id="email"
+              type="email"
+              placeholder="Your email"
+              className="simpleInput"
+            />
+            <button
+              type="submit"
+              className="button"
+              style={{ backgroundColor: "#00C88C", color: "#FFFFFF" }}
+            >
+              Send
+            </button>
           </form>
+          {hasNewResponse ? (
+            <ResponseSnackbar
+              response={responseDetail}
+              setHasNewResponse={setHasNewResponse}
+            />
+          ) : (
+            false
+          )}
         </section>
 
-        <hr className={styles.divider} />
+        <hr className="divider" />
 
-        <section
-          style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}
-        >
-          <section className={styles.sectionLeft}>
-            <Image
-              src={imageSection3}
-              alt="Table with simulation share in a laptop"
-              quality={100}
-            />
-          </section>
-          <section className={`${styles.sectionText}  ${styles.sectionRight}`}>
+        <section className={styles.article}>
+          <section className={`${styles.sectionText}  ${styles.sectionLeft}`}>
             <h2>Shared payments made simple</h2>
             <p>
               Sometimes it’s hard enough just sharing a restaurant bill. Try
@@ -75,15 +164,22 @@ export default function MainComponent() {
               our automated payment system takes care of the rest. You need
               never talk money or who owes what.
             </p>
-            <Link href="/">
+            <Link href="/awdas">
               <a className="a">
                 Read how Bridget’s share (without Hapu) ended over $15
               </a>
             </Link>
           </section>
+          <section className={`${styles.sectionText} ${styles.sectionLeft}`}>
+            <Image
+              src={imageSection3}
+              alt="Table with simulation share in a laptop"
+              quality={100}
+            />
+          </section>
         </section>
 
-        <hr className={styles.divider} />
+        <hr className="divider" />
 
         <section
           className={`${styles.sectionText}  ${styles.sectionLeft}`}
@@ -99,10 +195,10 @@ export default function MainComponent() {
           </p>
           <Link href="/">
             <a className="a">
-              Read how Hapu’s tribal background defines our app{" "}
+              Read how Hapu’s tribal background defines our app
             </a>
           </Link>
-          <aside className={`${styles.sectionImage}  ${styles.sectionRight}`}>
+          <aside className="displayNone" style={{ margin: "48px 0" }}>
             <Image
               src={imageSection4}
               alt="Demonstration list of paid billings from a nanny service"
@@ -111,7 +207,7 @@ export default function MainComponent() {
           </aside>
         </section>
 
-        <hr className={styles.divider} />
+        <hr className="divider" />
 
         <footer
           className={`${styles.sectionText}  ${styles.sectionLeft}`}

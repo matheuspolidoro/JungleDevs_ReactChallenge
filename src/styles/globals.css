@@ -4,6 +4,20 @@ html, body {
   margin: 0;
   font-family: 'Inter', Roboto, sans-serif;
   background-color: #FAF9F7;
+  font-size: 100%;
+}
+
+@media (max-width: 840px) {
+  html, body {
+    text-align: center;
+  }
+  .displayNone {
+    display: none;
+  }
+  .simpleInput {
+    margin: 0 0 8px 0;
+    height: 42px;
+  }
 }
 
 a {
@@ -30,4 +44,21 @@ h1, h2, h3, h4, h5, h6 {
 .a {
   color: #5E20A4;
   text-decoration: underline;
+}
+
+.simpleInput {
+  width: 100%;
+  margin-right: 16px;
+  border: 1px solid lightgray;
+  border-radius: 4px;
+  padding: 0 8px;
+}
+
+.divider {
+  border: 1px solid lightgray;
+  color: lightgray;
+  background-color: lightgray;
+  border-color: lightgray;
+  margin: 0 128px;
+  padding: 0 0;
 }

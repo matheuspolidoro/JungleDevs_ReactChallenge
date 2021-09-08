@@ -1,16 +1,19 @@
-import Image from "next/image";
+import Head from "next/head";
 import FooterComponent from "../components/FooterComponent";
 import HeaderComponent from "../components/HeaderComponent";
 import MainComponent from "../components/MainComponent";
-import styles from "../styles/Home.module.css";
 
 export default function Home() {
   return (
     <div>
+      <Head>
+        <title>Hapu</title>
+        <meta name="description" content="Hapu Nanny Services" />
+        <link rel="icon" href="/hapuSymbol.svg" />
+      </Head>
       <HeaderComponent />
       <MainComponent />
       <FooterComponent />
-      <footer className={styles.footer}></footer>
     </div>
   );
 }

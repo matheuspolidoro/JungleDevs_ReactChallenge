@@ -1,11 +1,11 @@
 .header {
     --green: #00C88C;
-    background-image: url('../../assets/Image.png'), linear-gradient(314.72deg, #C86DD7 -1.5%, #7E49C3 39.43%, #5912AC 86.02%);
+    background-image: url('../../assets/Image.webp'), linear-gradient(314.72deg, #C86DD7 -1.5%, #7E49C3 39.43%, #5912AC 86.02%);
     ;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    height: 616px;
+    min-height: 616px;
     /* height: 540px; */
     width: 100%;
     padding: 0 20px;
@@ -13,9 +13,22 @@
     flex-direction: column;
 }
 
+.logoBackground {
+    position: relative;
+    background-color: var(--green);
+    width: 48px;
+    height: 64px;
+    border-radius: 0 0 32px 32px;
+    min-width: 48px;
+    min-height: 64px;
+    display: grid;
+    align-items: flex-end;
+    padding-bottom: 12px;
+}
+
 .navigation {
     display: flex;
-    width: 100%;
+    max-width: 100%;
     justify-content: space-between;
     align-items: center;
     color: #FFFFFF;
@@ -31,20 +44,10 @@
     list-style-type: none;
 }
 
-.logoBackground {
-    position: relative;
-    background-color: var(--green);
-    width: 48px;
-    height: 64px;
-    border-radius: 0 0 32px 32px;
-    min-width: 48px;
-    min-height: 64px;
-}
-
 .highlight {
     display: flex;
     justify-content: space-between;
-    padding: 0 80px;
+    padding: 80px;
 }
 
 .highlightLeft {
@@ -56,13 +59,19 @@
     font-weight: 400;
 }
 
-.buttonTotalRadius {
-    background-color: var(--green);
+.buttonCircle {
     color: #FFFFFF;
+    background-color: var(--green);
+    display: grid;
+    place-items: center;
+    padding-left: 4px;
+    font-size: 24px;
     height: 48px;
     width: 48px;
     border: none;
     border-radius: 100%;
+    cursor: pointer;
+    margin-right: 16px;
 }
 
 .footer {
@@ -80,4 +89,33 @@
 .imageProfile {
     border: 3px solid #FFFFFF;
     border-radius: 100%;
+}
+
+@media (max-width: 600px) {
+    .header {
+        height: auto;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        padding-left: clamp(16px, 16px, 16px);
+        padding-right: clamp(16px, 16px, 16px);
+    }
+    .navigation {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: flex-end;
+        padding-right: 0;
+        color: #FFFFFF;
+    }
+    .navigationLeft {
+        display: none;
+    }
+    .navigationRight>ul {
+        display: flex;
+        list-style-type: none;
+    }
+    .highlight {
+        padding: 64px clamp(8px, 16px, 32px);
+    }
 }
