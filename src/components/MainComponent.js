@@ -7,25 +7,28 @@ import imageSection4 from "../../assets/ImageSection4.png";
 import imageSection5 from "../../assets/ImageSection5.png";
 import styles from "../styles/MainComponent.module.css";
 
-const ResponseSnackbar = ({ response, setHasNewResponse }) => {
+const ResponseSnackbar = ({ response, result, setHasNewResponse }) => {
   const [divContent, setDivContent] = useState(false);
-  console.log("response sec", response);
-  function switchDiv() {
-    switch (response.ok) {
-      case false:
-        setDivContent(
-          <div
-            style={{
-              backgroundColor: "orange",
-              padding: "8px",
-              borderRadius: "4px",
-              color: "#FFFFFF",
-            }}
-          >
-            <p>a</p>
-          </div>
-        );
-      case true:
+  const [warning, setWarning] = useState();
+
+  console.log("result  : ", result);
+
+  function switchDiv(res, bodyRes) {
+    if (res.status === 200) {
+      setDivContent(
+        <div
+          style={{
+            backgroundColor: "green",
+            padding: "8px",
+            borderRadius: "4px",
+            color: "#FFFFFF",
+          }}
+        >
+          <p>Ok</p>
+        </div>
+      );
+    } else if (res.status === 400) {
+      if (bodyRes.name) {
         setDivContent(
           <div
             style={{
@@ -35,24 +38,81 @@ const ResponseSnackbar = ({ response, setHasNewResponse }) => {
               color: "#FFFFFF",
             }}
           >
-            <p>n</p>
+            <p>{warning}</p>
           </div>
         );
-      default:
-        return <p>default</p>;
+        setWarning("Please fill the name field");
+      }
+
+      if (bodyRes.email) {
+        setDivContent(
+          <div
+            style={{
+              backgroundColor: "red",
+              padding: "8px",
+              borderRadius: "4px",
+              color: "#FFFFFF",
+            }}
+          >
+            <p>{warning}</p>
+          </div>
+        );
+        setWarning("Please fill the email field with a valid address");
+      }
+
+      if (bodyRes.name && bodyRes.email) {
+        setDivContent(
+          <div
+            style={{
+              backgroundColor: "red",
+              padding: "8px",
+              borderRadius: "4px",
+              color: "#FFFFFF",
+            }}
+          >
+            <p>{warning}</p>
+          </div>
+        );
+        setWarning("Plase fill the fields");
+      }
+    } else if (res.status === 500) {
+      setDivContent(
+        <div
+          style={{
+            backgroundColor: "orange",
+            padding: "8px",
+            borderRadius: "4px",
+            color: "#FFFFFF",
+          }}
+        >
+          <p>Try again later.</p>
+        </div>
+      );
     }
   }
 
   useEffect(() => {
-    switchDiv();
-  }, response);
+    if (response) {
+      console.log("IF response.status", response.status);
+      switchDiv(response, result);
+    }
+  }, [response]);
 
   return divContent;
 };
 
 export default function MainComponent() {
   const [hasNewResponse, setHasNewResponse] = useState(false);
-  const [responseDetail, setResponseDetail] = useState("");
+  const [responseState, setResponseState] = useState("");
+
+  const initialResponseBody = {
+    error: [],
+    name: [],
+    email: [],
+    detail: [],
+  };
+
+  const [responseBody, setResponseBody] = useState(initialResponseBody);
 
   const subscribeNewsletter = async (event) => {
     event.preventDefault();
@@ -75,11 +135,22 @@ export default function MainComponent() {
 
     const result = await response.json();
 
-    console.log("result first: ", result);
-    console.log("response first: ", response);
     setHasNewResponse(true);
-    setResponseDetail(response);
+    setResponseBody((prevState) => {
+      return {
+        ...prevState,
+        name: result.name ? result.name : [],
+        email: result.email ? result.email : [],
+        error: result.error ? result.error : [],
+        detail: result.detail ? result.detail : [],
+      };
+    });
+    setResponseState(response);
   };
+
+  useEffect(() => {
+    console.log("responseBody", responseBody);
+  }, [responseBody]);
 
   return (
     <div className={styles.container}>
@@ -127,13 +198,35 @@ export default function MainComponent() {
               type="text"
               placeholder="Your name"
               className="simpleInput"
+              style={
+                responseBody.name.length > 0
+                  ? { borderColor: "red" }
+                  : { borderColor: "lightgray" }
+              }
             />
+            {responseBody.name.length > 0 ? (
+              <label htmlFor="name" className={styles.label}>
+                {responseBody.name[0]}
+              </label>
+            ) : null}
+
             <input
               id="email"
               type="email"
               placeholder="Your email"
               className="simpleInput"
+              style={
+                responseBody.email.length > 0
+                  ? { borderColor: "red" }
+                  : { borderColor: "lightgray" }
+              }
             />
+            {responseBody.email.length > 0 ? (
+              <label htmlFor="email" className={styles.label}>
+                {responseBody.email[0]}
+              </label>
+            ) : null}
+
             <button
               type="submit"
               className="button"
@@ -141,15 +234,24 @@ export default function MainComponent() {
             >
               Send
             </button>
+            {responseBody.error.length > 0 ? (
+              <label className={styles.label}>{responseBody.error[0]}</label>
+            ) : null}
+            {responseBody.detail.length > 0 ? (
+              <label className={styles.label}>
+                Great. You're now subscribed!
+              </label>
+            ) : null}
           </form>
-          {hasNewResponse ? (
+          {/* {hasNewResponse ? (
             <ResponseSnackbar
-              response={responseDetail}
+              response={responseState}
+              result={detail}
               setHasNewResponse={setHasNewResponse}
             />
           ) : (
             false
-          )}
+          )} */}
         </section>
 
         <hr className="divider" />
