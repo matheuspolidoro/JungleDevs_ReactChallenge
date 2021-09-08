@@ -12,7 +12,7 @@ html, body {
     text-align: center;
   }
   .displayNone {
-    display: none;
+    display: none !important;
   }
   .simpleInput {
     margin: 0 0 8px 0;
@@ -39,6 +39,9 @@ h1, h2, h3, h4, h5, h6 {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .a {

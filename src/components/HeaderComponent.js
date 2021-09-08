@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "../styles/HeaderComponent.module.css";
 import imageProfile from "../../assets/ProfileImage.png";
+import imageHeader from "../../assets/ImageHeader.png";
 import hapuSymbol from "../../public/hapuSymbol.svg";
 
 export default function HeaderComponent() {
@@ -9,7 +10,11 @@ export default function HeaderComponent() {
     <>
       <header className={styles.header}>
         <div className={styles.background} />
-        <nav style={{ display: "flex" }}>
+        <nav
+          style={{
+            display: "flex",
+          }}
+        >
           <Link href="/">
             <a
               className={styles.logoBackground}
@@ -93,7 +98,9 @@ export default function HeaderComponent() {
                 </Link>
               </div>
             </div>
-            <div>.</div>
+            <aside style={{ flex: 1 }} className="displayNone">
+              <Image src={imageHeader} />
+            </aside>
           </div>
         </section>
       </header>

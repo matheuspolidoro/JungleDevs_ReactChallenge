@@ -103,7 +103,7 @@ const ResponseSnackbar = ({ response, result, setHasNewResponse }) => {
 
 export default function MainComponent() {
   const [hasNewResponse, setHasNewResponse] = useState(false);
-  const [responseState, setResponseState] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const initialResponseBody = {
     error: [],
@@ -116,7 +116,7 @@ export default function MainComponent() {
 
   const subscribeNewsletter = async (event) => {
     event.preventDefault();
-
+    setLoading(true);
     const userData = {
       name: event.target.name.value,
       email: event.target.email.value,
@@ -134,18 +134,19 @@ export default function MainComponent() {
     );
 
     const result = await response.json();
-
-    setHasNewResponse(true);
-    setResponseBody((prevState) => {
-      return {
-        ...prevState,
-        name: result.name ? result.name : [],
-        email: result.email ? result.email : [],
-        error: result.error ? result.error : [],
-        detail: result.detail ? result.detail : [],
-      };
-    });
-    setResponseState(response);
+    setTimeout(() => {
+      setHasNewResponse(true);
+      setResponseBody((prevState) => {
+        return {
+          ...prevState,
+          name: result.name ? result.name : [],
+          email: result.email ? result.email : [],
+          error: result.error ? result.error : [],
+          detail: result.detail ? result.detail : [],
+        };
+      });
+      setLoading(false); //////        /;
+    }, 3000);
   };
 
   useEffect(() => {
@@ -232,7 +233,7 @@ export default function MainComponent() {
               className="button"
               style={{ backgroundColor: "#00C88C", color: "#FFFFFF" }}
             >
-              Send
+              {loading ? <div className={styles.loader}></div> : "Send"}
             </button>
             {responseBody.error.length > 0 ? (
               <label className={styles.label}>{responseBody.error[0]}</label>
@@ -243,15 +244,6 @@ export default function MainComponent() {
               </label>
             ) : null}
           </form>
-          {/* {hasNewResponse ? (
-            <ResponseSnackbar
-              response={responseState}
-              result={detail}
-              setHasNewResponse={setHasNewResponse}
-            />
-          ) : (
-            false
-          )} */}
         </section>
 
         <hr className="divider" />
